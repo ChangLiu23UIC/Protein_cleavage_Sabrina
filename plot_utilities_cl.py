@@ -13,3 +13,8 @@ def plot_peptide_lengths_histogram(peptides):
     plt.xticks(range(1, max(peptide_lengths) + 1, 5) )
     plt.grid(axis='y', linestyle='--', linewidth=0.7, alpha=0.7)
     plt.show()
+
+
+def two_d_image(protein_file):
+    uniprot_id = protein_file.split("-"[2])
+

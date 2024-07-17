@@ -29,10 +29,13 @@ def count_detectable_peptides(cleaved_peptides):
     return detectable_peptides
 
 
-def peptide_list_from_file_list(file_list:list, methods):
+def protein_list_from_file(file_list:list):
     p = PDBParser()
     protein_sequence_list = [three_to_one(extract_aa_sequence(p.get_structure(protein.split('-')[2],protein)))
                            for protein in file_list]
+    return protein_sequence_list
+
+def peptide_list_from_file_list(protein_sequence_list:list, methods):
     peptide_list = []
     for protein_sequences in protein_sequence_list:
         peptide_list += peptide_cleavage(methods[0], protein_sequences)
