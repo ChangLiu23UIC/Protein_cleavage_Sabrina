@@ -33,7 +33,9 @@ def protein_list_from_file(file_list:list):
     p = PDBParser()
     protein_sequence_list = [three_to_one(extract_aa_sequence(p.get_structure(protein.split('-')[2],protein)))
                            for protein in file_list]
-    return protein_sequence_list
+    protein_dict = {protein.split('-')[2]:three_to_one(extract_aa_sequence(p.get_structure(protein.split('-')[2],protein)))
+                           for protein in file_list}
+    return protein_sequence_list, protein_dict
 
 
 def peptide_list_from_protein_list(protein_sequence_list:list, methods):
