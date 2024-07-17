@@ -37,14 +37,30 @@ def peptide_list_from_file_list(file_list:list, methods):
     for protein_sequences in protein_sequence_list:
         peptide_list += peptide_cleavage(methods[0], protein_sequences)
     if len(methods) == 1:
-        return peptide_list
+        return peptide_list, protein_sequence_list
     else:
         new_peptide_list = []
         for method in methods[1:]:
             for peptide in peptide_list:
                 new_peptide_list += peptide_cleavage(method, peptide)
             peptide_list = new_peptide_list
-            return peptide_list
+            return peptide_list, protein_sequence_list
+
+
+def summary_statements(peptide_list, protein_sequence_list):
+    detectable_peptides = count_detectable_peptides(peptide_list)
+    print("Number of peptides that satisfy the mass spectrometer's detectability conditions:", detectable_peptides)
+
+    total_collagen_length = sum(len(protein) for protein in protein_sequence_list)
+    total_detectable_length = sum(len(peptide) for peptide in peptide_list if 7 <= len(peptide) <= 17)
+    coverage = total_detectable_length / total_collagen_length * 100  # Convert to percentage
+    print("Theoretical average detected sequence coverage by trypsin and chymotrypsin:", coverage)
+
+    average_size = sum(len(peptide) for peptide in peptide_list) / len(peptide_list)
+    print("Average size of digested peptides:", average_size)
+
+    max_size = max(len(peptide) for peptide in peptide_list)
+    print("Maximum size of undigested peptides:", max_size)
 
 
 if __name__ == '__main__':
