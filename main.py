@@ -8,7 +8,7 @@ methods = user_input.split(',')
 
 file_list = glob.glob("AF Structure Files - Collagen/*.pdb")
 protein_sequence_list = protein_list_from_file(file_list)
-peptide_list = peptide_list_from_file_list(protein_sequence_list, methods)
+peptide_list = peptide_list_from_protein_list(protein_sequence_list, methods)
 plot_peptide_lengths_histogram(peptide_list)
 summary_statements(peptide_list, protein_sequence_list)
 

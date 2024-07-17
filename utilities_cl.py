@@ -35,19 +35,20 @@ def protein_list_from_file(file_list:list):
                            for protein in file_list]
     return protein_sequence_list
 
-def peptide_list_from_file_list(protein_sequence_list:list, methods):
+
+def peptide_list_from_protein_list(protein_sequence_list:list, methods):
     peptide_list = []
     for protein_sequences in protein_sequence_list:
         peptide_list += peptide_cleavage(methods[0], protein_sequences)
     if len(methods) == 1:
-        return peptide_list, protein_sequence_list
+        return peptide_list
     else:
         new_peptide_list = []
         for method in methods[1:]:
             for peptide in peptide_list:
                 new_peptide_list += peptide_cleavage(method, peptide)
             peptide_list = new_peptide_list
-            return peptide_list, protein_sequence_list
+            return peptide_list
 
 
 def summary_statements(peptide_list, protein_sequence_list):
@@ -68,5 +69,5 @@ def summary_statements(peptide_list, protein_sequence_list):
 
 if __name__ == '__main__':
     file_list = glob.glob("AF Structure Files - Collagen/*.pdb")
-    pl = peptide_list_from_file_list(file_list, ["trypsin", 'chymotrypsin low specificity'])
+    pl = peptide_list_from_protein_list(file_list, ["trypsin", 'chymotrypsin low specificity'])
 
