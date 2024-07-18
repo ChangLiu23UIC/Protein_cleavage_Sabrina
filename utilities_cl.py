@@ -80,6 +80,12 @@ def peptide_list_from_protein_list(protein_sequence_list: list, methods):
 
 
 def summary_statements(peptide_list, protein_sequence_list):
+    """
+    Print all the summary statements needed
+    :param peptide_list:
+    :param protein_sequence_list:
+    :return:
+    """
     detectable_peptides = count_detectable_peptides(peptide_list)
     print("Number of peptides that satisfy the mass spectrometer's detectability conditions:", detectable_peptides)
 
