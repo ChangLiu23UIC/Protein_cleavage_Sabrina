@@ -2,7 +2,11 @@ import matplotlib.pyplot as plt
 from utilities_cl import *
 
 def plot_peptide_lengths_histogram(peptides):
-
+    """
+    Plot the histogram of peptide length after cleavage
+    :param peptides:
+    :return:
+    """
     # Calculate the lengths of each peptide
     peptide_lengths = [len(peptide) for peptide in peptides]
 
@@ -18,6 +22,12 @@ def plot_peptide_lengths_histogram(peptides):
 
 
 def two_d_image(sequence, methods):
+    """
+    Get a 2D color spectrum.
+    :param sequence:
+    :param methods:
+    :return:
+    """
     peptide_list = peptide_list_from_protein_list([sequence], methods)
     color_list = []
     for peptide in peptide_list:
