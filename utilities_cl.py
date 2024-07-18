@@ -1,10 +1,17 @@
+import pdb
+
 from Bio.PDB import *
 from cleavage_method import peptide_cleavage, three_to_one
 from expasy import expasy_rules
 import glob
 
 
-def extract_aa_sequence(structure):
+def extract_aa_sequence(structure) -> str:
+    """
+    Extract the three letter amino acid sequence from the PDB file
+    :param structure:
+    :return:
+    """
     amino_acid_sequence = ""
     for model in structure:
         for chain in model:
@@ -16,29 +23,48 @@ def extract_aa_sequence(structure):
     return amino_acid_sequence
 
 
-def count_detectable_peptides(cleaved_peptides):
+def count_detectable_peptides(cleaved_peptides: list, min_val: int = 7, max_val: int = 30) -> int:
+    """
+    We have set threshold values for detectabel peptides, 7 to 30 as default.
+    :param max_val:
+    :param min_val:
+    :param cleaved_peptides:
+    :return:
+    """
     # Initialize counter for peptides that satisfy the detectability conditions
     detectable_peptides = 0
 
     # Iterate through cleaved peptides and count those that satisfy the conditions
     for peptide in cleaved_peptides:
         peptide_length = len(peptide)
-        if 7 <= peptide_length <= 30:
+        if min_val <= peptide_length <= max_val:
             detectable_peptides += 1
 
     return detectable_peptides
 
 
-def protein_list_from_file(file_list:list):
+def protein_list_from_file(file_list: list):
+    """
+    Generate the protein list and protein dict {uniprot:sequence} from the PDB file.
+    :param file_list:
+    :return:
+    """
     p = PDBParser()
-    protein_sequence_list = [three_to_one(extract_aa_sequence(p.get_structure(protein.split('-')[2],protein)))
-                           for protein in file_list]
-    protein_dict = {protein.split('-')[2]:three_to_one(extract_aa_sequence(p.get_structure(protein.split('-')[2],protein)))
-                           for protein in file_list}
+    protein_sequence_list = [three_to_one(extract_aa_sequence(p.get_structure(protein.split('-')[2], protein)))
+                             for protein in file_list]
+    protein_dict = {
+        protein.split('-')[2]: three_to_one(extract_aa_sequence(p.get_structure(protein.split('-')[2], protein)))
+        for protein in file_list}
     return protein_sequence_list, protein_dict
 
 
-def peptide_list_from_protein_list(protein_sequence_list:list, methods):
+def peptide_list_from_protein_list(protein_sequence_list: list, methods):
+    """
+    Cleave the protein list into peptides in sequential order
+    :param protein_sequence_list:
+    :param methods:
+    :return:
+    """
     peptide_list = []
     for protein_sequences in protein_sequence_list:
         peptide_list += peptide_cleavage(methods[0], protein_sequences)
@@ -72,4 +98,3 @@ def summary_statements(peptide_list, protein_sequence_list):
 if __name__ == '__main__':
     file_list = glob.glob("AF Structure Files - Collagen/*.pdb")
     pl = peptide_list_from_protein_list(file_list, ["trypsin", 'chymotrypsin low specificity'])
-
