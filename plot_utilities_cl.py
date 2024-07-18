@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 from utilities_cl import *
 
 def plot_peptide_lengths_histogram(peptides):
+
     # Calculate the lengths of each peptide
     peptide_lengths = [len(peptide) for peptide in peptides]
 

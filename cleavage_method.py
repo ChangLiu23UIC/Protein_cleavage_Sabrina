@@ -8,6 +8,11 @@ cleavage_rules = {
 
 
 def three_to_one(aa_sequence):
+    """
+    Turn the 3 letter amino acid into 1 letter amino acid (ALA to A)
+    :param aa_sequence:
+    :return:
+    """
     three_to_one_dict = {
         'ALA': 'A', 'ARG': 'R', 'ASN': 'N', 'ASP': 'D',
         'CYS': 'C', 'GLN': 'Q', 'GLU': 'E', 'GLY': 'G',
@@ -28,6 +33,12 @@ def three_to_one(aa_sequence):
 
 
 def peptide_cleavage(rule, sequence):
+    """
+    Method for peptide cleavage with the expasy rule selected with regular expression
+    :param rule:
+    :param sequence:
+    :return:
+    """
     exp_rule = expasy_rules[rule]
     cut_end_pos_list = [i.start() for i in re.finditer(exp_rule, sequence)] + [(len(sequence) - 1)]
     cut_start_pos_list = [0] + [i + 1 for i in cut_end_pos_list]
