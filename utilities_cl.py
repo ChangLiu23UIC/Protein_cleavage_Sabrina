@@ -2,7 +2,6 @@ import pdb
 
 from Bio.PDB import *
 from cleavage_method import peptide_cleavage, three_to_one
-from expasy import expasy_rules
 import glob
 
 
