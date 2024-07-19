@@ -125,7 +125,7 @@ def _main_(peptide_list,
     #     print('image path not provided, png save failed')
 
     # pymol2glmol, convert pdb to pse and visualize through html
-    dump_rep_color_from_array(pdb_name, freq_arry_target, ptm_index_target, ptm_color_dict, base_path)
+    # dump_rep_color_from_array(pdb_name, freq_arry_target, ptm_index_target, ptm_color_dict, base_path)
 
     print(f'time used for mapping: {pdb_name} {time.time() - time_start} seconds')
     # Get out!
