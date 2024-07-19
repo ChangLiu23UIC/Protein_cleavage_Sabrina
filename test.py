@@ -9,7 +9,7 @@ details_url = "https://scv.lab.gy/job_details"
 sequence_model = {
     "id": "A2A2Y8",
     "protein_id": "A2A2Y8",
-    "coverage": 100,  # Example coverage
+    "coverage": 1,
     "sequence": "MDVTKKNKRDGTEVTERIVTETVTTRLTSLPPKGGTSNGYAKTASLGGGSRLEKQSLTHGSSGYINSTGSTRGHASTSSYRRAHSPASTLPNSPGSTFERKTHVTRHAYEGSSSGNSSPEYPRKEFASSSTRGRSQTRESEIRVRLQSASPSTRWTELDDVKRLLKGSRSASVSPTRNSSNTLPIPKKGTVETKIVTASSQSVSGTYDATILDANLPSHVWSSTLPAGSSMGTYHNNMTTQSSSLLNTNAYSAGSVFGVPNNMASCSPTLHPGLSTSSSVFGMQNNLAPSLTTLSHGTTTTSTAYGVKKNMPQSPAAVNTGVSTSAACTTSVQSDDLLHKDCKFLILEKDNTPAKKEMELLIMTKDSGKVFTASPASIAATSFSEDTLKKEKQAAYNADSGLKAEANGKNKYDCCPP",
     "UNID": "A2A2Y8",
     "description": "Test",
@@ -41,9 +41,13 @@ job = {
 # Convert job data to JSON string
 job_json = json.dumps(job)
 
-# Submit the job in two parts: JSON data and file
-response = requests.post(submit_url, files={'file': (r"E:\UIC_PHD\Python projects\Protein_cleavage\AF Structure Files - Collagen\AF-A2A2Y8-F1-model_v4.pdb", open(r"E:\UIC_PHD\Python projects\Protein_cleavage\AF Structure Files - Collagen\AF-A2A2Y8-F1-model_v4.pdb", 'rb'))}, data={'job': job_json})
+# Submit the job with JSON payload and file
+files = {
+    'file': (r"E:\UIC_PHD\Python projects\Protein_cleavage\AF Structure Files - Collagen\AF-A2A2Y8-F1-model_v4.pdb", open(r"E:\UIC_PHD\Python projects\Protein_cleavage\AF Structure Files - Collagen\AF-A2A2Y8-F1-model_v4.pdb", 'rb')),
+    'job': (None, job_json, 'application/json')
+}
 
+response = requests.post(submit_url, files=files)
 response_data = response.json()
 print(response_data)
 
