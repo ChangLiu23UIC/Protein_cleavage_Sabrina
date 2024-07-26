@@ -50,5 +50,24 @@ def peptide_cleavage(rule, sequence):
                               for i in range(0, len(pieces_list["start_pos"]) - 1)]
     return result
 
+
+def grouping_by_size_for_color(peptide_list:list) -> dict:
+    """
+    seperate the dictionary into three color types based on length
+    :param peptide_list:
+    :return:
+    """
+    result_dict = {"red":[], "green":[], "blue":[]}
+    for peptide in peptide_list:
+        if len(peptide) < 7:
+            result_dict["red"].append(peptide)
+        elif 6 < len(peptide) < 21:
+            result_dict["green"].append(peptide)
+        elif 20 < len(peptide):
+            result_dict["blue"].append(peptide)
+
+    return result_dict
+
+
 if __name__ == '__main__':
     result = peptide_cleavage("trypsin", "MDVTKKNKRDGTEVTERIVTETVTTRLTSLPPKGGTSNGYAKTASLGGGSRLEKQSLTHGSSGYINSTGSTRGHASTSSYRRAHSPASTLPNSPGSTFERKTHVTRHAYEGSSSGNSSPEYPRKEFASSSTRGRSQTRESEIRVRLQSASPSTRWTELDDVKRLLKGSRSASVSPTRNSSNTLPIPKKGTVETKIVTASSQSVSGTYDATILDANLPSHVWSSTLPAGSSMGTYHNNMTTQSSSLLNTNAYSAGSVFGVPNNMASCSPTLHPGLSTSSSVFGMQNNLAPSLTTLSHGTTTTSTAYGVKKNMPQSPAAVNTGVSTSAACTTSVQSDDLLHKDCKFLILEKDNTPAKKEMELLIMTKDSGKVFTASPASIAATSFSEDTLKKEKQAAYNADSGLKAEANGKNKYDCCPP")
