@@ -54,6 +54,7 @@ def peptide_cleavage(rule, sequence):
 def grouping_by_size_for_color(peptide_list:list) -> dict:
     """
     seperate the dictionary into three color types based on length
+    red unnecessary because impossible to find in scv (too short)
     :param peptide_list:
     :return:
     """
