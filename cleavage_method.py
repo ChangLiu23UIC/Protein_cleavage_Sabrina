@@ -58,7 +58,7 @@ def grouping_by_size_for_color(peptide_list:list) -> dict:
     :param peptide_list:
     :return:
     """
-    result_dict = { "green":[], "blue":[]}
+    result_dict = {"green":[], "blue":[]}
     for peptide in peptide_list:
         if 6 < len(peptide) < 21:
             result_dict["green"].append(peptide)
